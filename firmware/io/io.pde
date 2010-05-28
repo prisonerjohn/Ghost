@@ -15,7 +15,7 @@ byte lightsTwo;
 int addressPin = 6;
 int addressVal = 0;
 
-int i2Cadd = 1;
+int i2Cadd = 4;
 
 int LEDcol[NUM_COLS] = { 14,15,16,17 };  // pins used for LED cols
 int LEDrow[NUM_ROWS] = { 2,3,4 };        //pins used for LED rows
@@ -27,13 +27,6 @@ int t = .5;
 
 //******************************************************
 void setup() {
-  // read address pin to get which board
-//  addressVal = analogRead(addressPin);  
-//  if (addressVal > 750 && addressVal < 850)      i2Cadd = 1;
-//  else if (addressVal > 560 && addressVal < 660) i2Cadd = 2;
-//  else if (addressVal > 370 && addressVal < 470) i2Cadd = 3;
-//  else if (addressVal > 150 && addressVal < 250) i2Cadd = 4;
-
   // start i2c
   Wire.begin(i2Cadd);             
   Wire.onRequest(requestEvent);
