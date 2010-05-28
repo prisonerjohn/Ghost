@@ -1,6 +1,6 @@
 #include <Wire.h>
 #include <MsTimer2.h>
-#include "TheGhost.h"
+#include "Ghost.h"
 
 //#define DEBUG 1
 
