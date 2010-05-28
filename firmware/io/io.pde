@@ -4,6 +4,11 @@ uint8_t buttons;
 byte buttonsOne;
 byte buttonsTwo;
 
+int addressPin = 6;
+int addressVal = 0;
+
+int i2Cadd;
+
 int LEDcol[4] = {
   14,15,16,17}; //pins used for LED cols
 int LEDrow[3] = {
@@ -24,10 +29,24 @@ int t = .5;
 //******************************************************
 
 void setup(){
+  
+  addressVal = analogRead(addressPin); //read address pin to get which board
 
-  Wire.begin(4);                // join i2c bus with address #4
-  // Wire.onReceive(receiveEvent); // register event
-  Wire.onRequest(requestEvent); // register event
+    if(addressVal > 750 && addressVal <850)
+     i2Cadd = 1;
+      
+    if(addressVal > 560 && addressVal <660)
+     i2Cadd = 2;
+      
+    if(addressVal > 370 && addressVal <470)
+     i2Cadd = 3;
+    
+    if(addressVal > 150 && addressVal <250)
+     i2Cadd = 4;
+
+ Wire.begin(i2Cadd);                // join i2c bus with addressVal
+
+ Wire.onRequest(requestEvent); // register event
 
 
     for (int x = 0; x < 4; x++) {  //set LED col pin numbers 
@@ -56,8 +75,10 @@ for (int i=0; i < 8; i++){  //set the bits to zero
     bitWrite(buttonsOne,i,0);
     bitWrite(buttonsTwo,i,0);
     
-  }
-
+    }
+    
+ 
+      
   Serial.begin(9600);
 
 }//end setup
@@ -260,8 +281,12 @@ void loop(){
   
    buttons = (buttonsOne<<8) | buttonsTwo;  //bitshift into buttons
 
-//Serial.print(buttonsOne,DEC);
-//Serial.println(buttonsTwo,DEC);
+//Serial.print(buttonsOne,BIN);
+//Serial.println(buttonsTwo,BIN);
+//Serial.print(addressVal,DEC);
+//Serial.print(" ");
+//Serial.println(i2Cadd, DEC);
+
 }//end loop
 
   //******************************************************
