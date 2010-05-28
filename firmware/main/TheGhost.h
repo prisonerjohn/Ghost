@@ -7,6 +7,9 @@
 #define NUM_BUTTON_ROWS    3
 #define NUM_BUTTON_COLS    4
 
+#define NUM_STEPS (NUM_BUTTON_BOARDS * NUM_BUTTON_COLS)
+#define NUM_ARRAYS NUM_STEPS
+
 #define MAX_CHORD_MAPPINGS 8
 
 //*************************
@@ -195,7 +198,7 @@ const char F_SHARP_MINOR_SCL[] = {F_SHARP_3, G_SHARP_3, A_3, B_3, C_SHARP_3, D_3
 //*************************
 
 word buttonStates[NUM_BUTTON_BOARDS];
-word chordFlags;
+word rowFlags[NUM_BUTTON_ROWS];
 
 //*************************
 // GLOBAL FUNCTIONS

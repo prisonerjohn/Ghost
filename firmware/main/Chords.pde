@@ -38,7 +38,7 @@ void doChords() {
           chordControls[index].toggle();
           
         // if the button is pressed and the chordFlags is different...
-        } else if (chordControls[index].pressed && chordControls[index].lastFlag != chordFlags) {
+        } else if (chordControls[index].pressed && chordControls[index].lastFlag != rowFlags[2]) {
             int i;
             // if the chord flag mapping exists
             if ((i = chordControls[index].mappingExists()) != -1) {

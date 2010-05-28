@@ -1,7 +1,8 @@
 #include <Wire.h>
+#include <MsTimer2.h>
 #include "TheGhost.h"
 
-#define DEBUG 1
+//#define DEBUG 1
 
 //*************************
 // PROGRAM VARIABLES
@@ -33,8 +34,10 @@ void setup() {
 
   initSwitches();
   initAnalogs();
+  
   initNotes();
   initChords();
+  initDrums();
 }
 
 //-------------------------
@@ -48,14 +51,10 @@ void loop() {
 #endif
 
   if (noteChordSwitch) {
-    doNotes();
+    //doNotes();
   } else {
-    doChords();
+    //doChords();
   }
-
-#ifdef DEBUG
-  delay(100);
-#else 
-  delay(5);
-#endif
+  
+  doDrums();
 }

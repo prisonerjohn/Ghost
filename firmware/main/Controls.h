@@ -70,9 +70,9 @@ class ChordControl : public ButtonControl {
     
     void press() {
       ButtonControl::press();
-      lastFlag = chordFlags;
+      lastFlag = rowFlags[2];
       for (int i=0; i < numMappings; i++) {
-        if (chordMaps[i].flag == chordFlags) {
+        if (chordMaps[i].flag == rowFlags[2]) {
           chordMaps[i].on(chan, 0x40);
           return;
         }  
@@ -90,13 +90,13 @@ class ChordControl : public ButtonControl {
     
     void pressIndex(int _i) {
       ButtonControl::press();
-      lastFlag = chordFlags;
+      lastFlag = rowFlags[2];
       chordMaps[_i].on(chan, 0x40);
     }
     
     int mappingExists() {
       for (int i=0; i < numMappings; i++) {
-        if (chordMaps[i].flag == chordFlags) {
+        if (chordMaps[i].flag == rowFlags[2]) {
           return i;
         }  
       }
@@ -139,6 +139,33 @@ class ContinuousControl : public Control {
     
     char ctrl;
     char val;
+};
+
+//-------------------------
+class DrumControl : public ButtonControl {
+  public:
+    DrumControl() : ButtonControl() {
+      state = false;
+    }
+    
+    void set(int _id, int _chan, NoteMapping _noteMap) {
+      Control::set(_id, _chan);
+      noteMap = _noteMap; 
+    }
+    
+    void release() {
+      ButtonControl::release();
+      state = !state;  
+    }
+    
+    void trigger() {
+      noteMap.on(chan, 0x40);
+      noteMap.off(chan);
+    }
+    
+    NoteMapping noteMap;
+    
+    boolean state;
 };
 
 #endif

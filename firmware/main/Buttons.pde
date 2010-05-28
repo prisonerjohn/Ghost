@@ -3,7 +3,9 @@ void readButtonStates() {
   for (int brd = 0; brd < NUM_BUTTON_BOARDS; brd++) {
     buttonStates[brd] = readButtonBoard(brd);
     for (int col = 0; col < NUM_BUTTON_COLS; col++) {
-      bitWrite(chordFlags, brd*NUM_BUTTON_COLS + col, bitRead(buttonStates[brd], NUM_BUTTON_ROWS*col + 2));
+      bitWrite(rowFlags[0], brd*NUM_BUTTON_COLS + col, bitRead(buttonStates[brd], NUM_BUTTON_ROWS*col + 0));
+      bitWrite(rowFlags[1], brd*NUM_BUTTON_COLS + col, bitRead(buttonStates[brd], NUM_BUTTON_ROWS*col + 1));
+      bitWrite(rowFlags[2], brd*NUM_BUTTON_COLS + col, bitRead(buttonStates[brd], NUM_BUTTON_ROWS*col + 2));
     }
   }
 }
@@ -17,7 +19,7 @@ void printButtonStates() {
     Serial.println(buttonStates[i], BIN);  
   }
   Serial.println("**** CHORD FLAGS ****");
-  Serial.println(chordFlags, BIN);
+  Serial.println(rowFlags[2], BIN);
   Serial.println("*********************");
 }
 
