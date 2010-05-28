@@ -17,9 +17,19 @@ void initLCD() {
 }
 
 //-------------------------
-void doLCD() {
+void doLCD(char* _text) {
+  lcd.clear();
   digitalWrite(48, LOW);
   
   lcd.setCursor(0, 1);
-  lcd.print("The Ghost");
+  lcd.print(_text);
+}
+
+//-------------------------
+void doLCD(int _text) {
+  lcd.clear();
+  digitalWrite(48, LOW);
+  
+  lcd.setCursor(0, 1);
+  lcd.print(_text);
 }

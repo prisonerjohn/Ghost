@@ -8,13 +8,16 @@
 // PROGRAM VARIABLES
 //*************************
 
-boolean noteChordSwitch = true;
+boolean noteChordSwitch;
 boolean autoChordSwitch;
 boolean touchPlateSwitch;
 boolean drumMachineSwitch;
 
 NoteControl noteControls[NUM_BUTTON_BOARDS * NUM_BUTTON_COLS * NUM_BUTTON_ROWS];
 ChordControl chordControls[NUM_BUTTON_BOARDS * NUM_BUTTON_COLS * (NUM_BUTTON_ROWS-1)];
+
+boolean drumsRunning = false;
+int bpm = 120;
 
 //*************************
 // MAIN LOOP
@@ -38,6 +41,8 @@ void setup() {
   initNotes();
   initChords();
   initDrums();
+
+  initEncoder();
 }
 
 //-------------------------
@@ -49,12 +54,19 @@ void loop() {
 #ifdef DEBUG
   printButtonStates();
 #endif
-
-  if (noteChordSwitch) {
-    //doNotes();
+  
+  if (drumMachineSwitch) {
+    readEncoderValues();
+    doDrums();  
   } else {
-    //doChords();
+    clearDrums();
+    
+    if (noteChordSwitch) {
+      doNotes();
+    } else {
+      doChords();
+    }
   }
   
-  doDrums();
+  updateContinuousControls();
 }

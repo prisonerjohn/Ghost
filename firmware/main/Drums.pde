@@ -6,17 +6,33 @@ ButtonControl sequenceControls[NUM_ARRAYS];
 ButtonControl arrayControls[NUM_ARRAYS];
 
 //-------------------------
+void stopDrums() {
+  drumsRunning = false;
+  MsTimer2::stop();
+}
+
+//-------------------------
+void startDrums() {
+  drumsRunning = true;
+  MsTimer2::set(30000/(float)bpm, step);
+  MsTimer2::start();
+}
+
+//-------------------------
+void resetDrums() {
+  stopDrums();
+  startDrums();
+}
+
+//-------------------------
 void initDrums() {
   currStep = 0;
   currArray = 0;
   
-  MsTimer2::set(125, step);  // 500ms period
-  MsTimer2::start();
-  
   for (int a=0; a < NUM_ARRAYS; a++) {
     NoteMapping d(38 + a);
     for (int s=0; s < NUM_STEPS; s++) {
-      drumControls[a][s].set(s, 0x90, d);
+      drumControls[a][s].set(s, 0x91, d);
     } 
   }
 }
@@ -96,10 +112,27 @@ void writeLightStates(int _id) {
     bitWrite(lights, NUM_BUTTON_ROWS * a + 2, 1);  
   }
   
-  Wire.beginTransmission(_id + 1); // transmit to device #4
-  //Wire.send((B10011111 << 8) | B01010101);
-  //Wire.send(B01010101);
+  Wire.beginTransmission(_id + 1);  // transmit to device #4
   Wire.send(uint8_t((lights >> 8) & B11111111));  // bits 8-11
   Wire.send(uint8_t(lights & B11111111));         // bits 0-7
-  Wire.endTransmission();    // stop transmitting
+  Wire.endTransmission();           // stop transmitting
+}
+
+//-------------------------
+void clearDrums() {
+  // TODO do this only on state change instead of on every frame
+  // clear the lights
+  for (int i=0; i < NUM_BUTTON_BOARDS; i++) {
+    clearLightStates(i);
+  }
+}
+
+//-------------------------
+void clearLightStates(int _id) {
+  word lights = 0;
+  
+  Wire.beginTransmission(_id + 1);  // transmit to device #4
+  Wire.send(uint8_t((lights >> 8) & B11111111));  // bits 8-11
+  Wire.send(uint8_t(lights & B11111111));         // bits 0-7
+  Wire.endTransmission();           // stop transmitting
 }
