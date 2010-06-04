@@ -22,6 +22,40 @@
 #define SWITCH_DRUM_MACHINE 5
 
 //*************************
+// TOUCHPLATE DEFINITIONS
+//*************************
+
+#define TP1A 22
+#define TP1B 23
+#define TP2A 24
+#define TP2B 25
+#define TP3A 26
+#define TP3B 27
+#define TP4A 28
+#define TP4B 29
+#define TP5A 30
+#define TP5B 31
+#define TP6A 32
+#define TP6B 33
+#define TP7A 34
+#define TP7B 35
+#define TP8A 36
+#define TP8B 37
+
+//*************************
+// HEADSTOCK DEFINITIONS
+//*************************
+
+#define HSLED1 62
+#define HSLED2 63
+#define HSLED3 64
+#define HSLED4 65
+#define HSLED5 66
+#define HSLED6 67
+#define HSLED7 68
+#define HSLED8 69
+
+//*************************
 // NOTE DEFINITIONS
 //*************************
 
@@ -168,30 +202,99 @@ const char G_9           = 127;  // G
 // CHORD DEFINITIONS
 //*************************
 
-const char C_MAJOR[]     = { C_2, E_2, G_2, C_3, E_3, G_3, C_4, E_4 };                    // BTN 1
+const char C_MAJOR[]     = { C_2, E_2, G_2, C_3, E_3, G_3, C_4, E_4 };                                              // BTN 1
 const char C_MAJOR_SCL[] = { C_3, D_3, E_3, F_3, G_3, A_3, B_3, C_4 };
+const char C_SEVEN[] =         {C_3, E_3, G_3, A_SHARP_3, C_4, E_4, G_4, A_SHARP_4};                                     //BTN 1+3
+const char C_MAJOR_7[] =     {C_3, E_3, G_3, B_3, C_4, E_4, G_4, B_4};                                               //BTN 1+3+6
+const char C_AUGMENTED[] = {C_3, E_3, G_SHARP_3, C_4, E_4, G_SHARP_4, C_5, E_5};                                    //BTN 1+6
 
-const char G_MAJOR[]     = { G_2, B_2, D_2, G_3, B_3, D_3, G_4, B_4 };                    // BTN 4
+const char G_MAJOR[]     = { G_2, B_2, D_2, G_3, B_3, D_3, G_4, B_4 };                                              // BTN 4
 const char G_MAJOR_SCL[] = { G_3, A_3, B_3, C_3, D_3, E_3, F_SHARP_3, G_4 };
+const char G_SEVEN[] =         {G_3, B_3, D_3, F_3, G_4, B_4, D_4, F_4};                                                        //BTN 4+6
+const char G_MAJOR_7[] =   {G_3, B_3, D_3, F_SHARP_3, G_4, B_4, D_4, F_SHARP_4};                                      //BTN 4+6+9
+const char G_AUGMENTED[] = {G_3, B_3, D_SHARP_3, G_4, B_4, D_SHARP_4, G_5, B_5};                                    //BTN 4+9
 
-const char D_MAJOR[]     = { D_2, F_SHARP_2, A_2, D_3, F_SHARP_3, A_3, D_4, F_SHARP_4 };  // BTN 7
+const char D_MAJOR[]     = { D_2, F_SHARP_2, A_2, D_3, F_SHARP_3, A_3, D_4, F_SHARP_4 };                            // BTN 7
 const char D_MAJOR_SCL[] = { D_3, E_3, F_SHARP_3, G_3, A_3, B_3, C_SHARP_3, D_4 };
+const char D_SEVEN[] = {D_2, F_SHARP_2, A_2, C_2, D_3, F_SHARP_3, A_3, C_3};                                            //BTN 7+9
+const char D_MAJOR_7[] = {D_2, F_SHARP_2, A_2, C_SHARP_2, D_3, F_SHARP_3, A_3, C_SHARP_3};                          //BTN 7+9+12
+const char D_AUGMENTED[] = {D_2, F_SHARP_2, A_SHARP_2, D_3, F_SHARP_3, A_SHARP_3, D_4, F_SHARP_4};                  //BTN 7+12
 
-const char A_MAJOR[]     = { A_2, C_SHARP_2, E_2, A_3, C_SHARP_3, E_3, A_4, C_SHARP_4 };  // BTN 10
+const char A_MAJOR[]     = { A_2, C_SHARP_2, E_2, A_3, C_SHARP_3, E_3, A_4, C_SHARP_4 };                            // BTN 10
 const char A_MAJOR_SCL[] = { A_3, B_3, C_SHARP_3, D_3, E_3, F_SHARP_3, G_SHARP_3, A_4 };
+const char A_SEVEN[] = {A_2, C_SHARP_2, E_2, G_2, A_3, C_SHARP_3, E_3, G_3};                                            //BTN 10+12
+const char A_MAJOR_7[] = {A_2, C_SHARP_2, E_2, G_SHARP_2, A_3, C_SHARP_3, E_3, G_SHARP_3};                          //BTN 10+12+15
+const char A_AUGMENTED[] = {A_2, C_SHARP_2, F_2, A_3, C_SHARP_3, F_3, A_4, C_SHARP_4};                              //BTN 10+15
+
+const char E_MAJOR[] = {E_3, G_SHARP_3, B_3, E_4, G_SHARP_4, B_4, E_5, G_SHARP_5};                                  //BTN 13
+const char E_MAJOR_SCL[] = {E_4, F_SHARP_4, G_SHARP_4, A_4, B_4, C_SHARP_4, D_SHARP_4, E_5}; 
+const char E_SEVEN[] = {E_3, G_SHARP_3, B_3, D_3, E_4, G_SHARP_4, B_4, D_4};                                            //BTN 13+15
+const char E_MAJOR_7[] = {E_3, G_SHARP_3, B_3, D_SHARP_3, E_4, G_SHARP_4, B_4, D_SHARP_4};                          //BTN 13+15+18
+const char E_AUGMENTED[] = {E_3, G_SHARP_3, C_3, E_4, G_SHARP_4, C_4, E_5, G_SHARP_5};                              //BTN 13+18
+
+const char B_MAJOR[] = {B_3, D_SHARP_3, F_SHARP_3, B_4, D_SHARP_4, F_SHARP_4, B_5, D_SHARP_5};                      //BTN 16
+const char B_MAJOR_SCL[] = {B_4, C_SHARP_4, D_SHARP_4, E_4, F_SHARP_4, G_SHARP_4, A_SHARP_5, B_5}; 
+const char B_SEVEN[] = {B_3, D_SHARP_3, F_SHARP_3, A_3, B_4, D_SHARP_4, F_SHARP_4, A_5};                                //BTN 16+18
+const char B_MAJOR_7[] = {B_3, D_SHARP_3, F_SHARP_3, A_SHARP_3, B_4, D_SHARP_4, F_SHARP_4, A_SHARP_5};              //BTN 16+18+21
+const char B_AUGMENTED[] = {B_3, D_SHARP_3, G_3, B_4, D_SHARP_4, G_4, B_5, D_SHARP_5};                              //BTN 16+21
+
+const char F_SHARP_MAJOR[] = {F_SHARP_3, A_SHARP_3, C_SHARP_3, F_SHARP_4, A_SHARP_4, C_SHARP_4, F_SHARP_5, A_SHARP_5};   //BTN 19
+const char F_SHARP_MAJOR_SCL[] = {F_SHARP_4, G_SHARP_4, A_SHARP_4, B_4, C_SHARP_4, D_SHARP_4, F_4, F_SHARP_5};
+const char F_SHARP_SEVEN[] =  {F_SHARP_3, A_SHARP_3, C_SHARP_3, E_3, F_SHARP_4, A_SHARP_4, C_SHARP_4, E_4};                 //BTN 19+21
+const char F_SHARP_MAJOR_7[] =  {F_SHARP_3, A_SHARP_3, C_SHARP_3, F_3, F_SHARP_4, A_SHARP_4, C_SHARP_4, F_4};           //BTN 19+21+24
+const char F_SHARP_AUGMENTED[] = {F_SHARP_3, A_SHARP_3, D_3, F_SHARP_4, A_SHARP_4, D_4, F_SHARP_5, A_SHARP_5};          //BTN 19+24
+
+const char C_SHARP_MAJOR[] = {C_SHARP_3, F_3, G_SHARP_3, C_SHARP_4, F_4, G_SHARP_4, C_SHARP_5, F_5};                     //BTN 22
+const char C_SHARP_MAJOR_SCL[] = {C_SHARP_4, D_SHARP_4, F_4, F_SHARP_4, G_SHARP_4, A_SHARP_4, C_4, C_SHARP_5};
+const char C_SHARP_SEVEN[] = {C_SHARP_3, F_3, G_SHARP_3, B_3, C_SHARP_4, F_4, G_SHARP_4, B_4};                               //BTN 22+24
+const char C_SHARP_MAJOR_7[] = {C_SHARP_3, F_3, G_SHARP_3, C_3, C_SHARP_4, F_4, G_SHARP_4, C_4};                         //BTN 22+24+27
+const char C_SHARP_AUGMENTED[] = {C_SHARP_3, F_3, A_3, C_SHARP_4, F_4, A_4, C_SHARP_5, F_5};                             //BTN 22+27
+
+const char G_SHARP_MAJOR[] = {G_SHARP_3, C_3, D_SHARP_3, G_SHARP_4, C_4, D_SHARP_4, G_SHARP_5, C_5};                     //BTN 25
+const char G_SHARP_MAJOR_SCL[] = {G_SHARP_4, A_SHARP_4, C_4, C_SHARP_4, D_SHARP_4, F_4, G_4, G_SHARP_5};
+const char G_SHARP_SEVEN[] = {G_SHARP_3, C_3, D_SHARP_3, F_SHARP_3, G_SHARP_4, C_4, D_SHARP_4, F_SHARP_4};                   //BTN 25+27
+const char G_SHARP_MAJOR_7[] = {G_SHARP_3, C_3, D_SHARP_3, G_3, G_SHARP_4, C_4, D_SHARP_4, G_4};                         //BTN 25+27+30
+const char G_SHARP_AUGMENTED[] = {G_SHARP_3, C_3, E_3, G_SHARP_4, C_4, E_4, G_SHARP_5, C_5};                            //BTN 25+30
+ 
+const char D_SHARP_MAJOR[] = {D_SHARP_3, G_3, A_SHARP_3, D_SHARP_4, G_4, A_SHARP_4, D_SHARP_5, G_5};                     //BTN 28
+const char D_SHARP_MAJOR_SCL[] = {D_SHARP_4, F_4, G_4, G_SHARP_4, A_SHARP_4, C_4, D_4, D_SHARP_5};
+const char D_SHARP_SEVEN[] = {D_SHARP_3, G_3, A_SHARP_3, C_SHARP_3, D_SHARP_4, G_4, A_SHARP_4, C_SHARP_4};                   //BTN 28+30
+const char D_SHARP_MAJOR_7[] = {D_SHARP_3, G_3, A_SHARP_3, D_3, D_SHARP_4, G_4, A_SHARP_4, D_4};                         //BTN 28+30+33
+const char D_SHARP_AUGMENTED[] = {D_SHARP_3, G_3, B_3, D_SHARP_4, G_4, B_4, D_SHARP_5, G_5};                             //BTN 28+33
+
+const char A_SHARP_MAJOR[] = {A_SHARP_3, D_3, F_3, A_SHARP_4, D_4, F_4, A_SHARP_5, D_5};                                 //BTN 31
+const char A_SHARP_MAJOR_SCL[] = {A_SHARP_4, C_4, D_4, D_SHARP_4, F_4, G_4, A_4, A_SHARP_5};
+const char A_SHARP_SEVEN[] = {A_SHARP_3, D_3, F_3, G_SHARP_3, A_SHARP_4, D_4, F_4, G_SHARP_4};                               //BTN 31+33
+const char A_SHARP_MAJOR_7[] = {A_SHARP_3, D_3, F_3, G_SHARP_3, A_SHARP_4, D_4, F_4, G_SHARP_4};                         //BTN 31+33+36
+const char A_SHARP_AUGMENTED[] = {A_SHARP_3, D_3, F_SHARP_3, A_SHARP_4, D_4, F_SHARP_4, A_SHARP_5, D_5};                 //BTN 31+36
+
+const char F_MAJOR[] = {F_3, A_3, C_3, F_4, A_4, C_4, F_5, A_5};                                                         //BTN 34
+const char F_MAJOR_SCL[] = {F_4, G_4, A_4, A_SHARP_4, C_4, D_4, E_4, F_5};
+const char F_SEVEN[] = {F_3, A_3, C_3, D_SHARP_3, F_4, A_4, C_4, D_SHARP_4};                                                 //BTN 34+36
+const char F_MAJOR_7[] =  {F_3, A_3, C_3, E_3, F_4, A_4, C_4, E_4};                                                      //BTN 34+36+33
+const char F_AUGMENTED[] = {F_3, A_3, C_SHARP_3, F_4, A_4, C_SHARP_4, F_5, A_5};                                         //BTN 34+33
 
 
-const char A_MINOR[] = {A_2, C_2, E_2, A_3, C_3, E_3, A_4, C_4};                          // BTN 2
+
+const char A_MINOR[] = {A_2, C_2, E_2, A_3, C_3, E_3, A_4, C_4};                                                    // BTN 2
 const char A_MINOR_SCL[] = {A_3, B_3, C_3, D_3, E_3, F_3, G_3, A_4};
+const char A_MINOR_7[] = {A_2, C_2, E_2, G_3, A_3, C_3, E_3, G_3};                                                  //BTN 2+3
+const char A_DIMINISHED[] =  {A_2, C_2, D_SHARP_2, A_3, C_3, D_SHARP_3, A_4, C_4};                                  //BTN 2+6
 
-const char E_MINOR[] = {E_2, G_2, B_2, E_3, G_3, B_3, E_4, G_4};                          // BTN 5
+const char E_MINOR[] = {E_2, G_2, B_2, E_3, G_3, B_3, E_4, G_4};                                                    // BTN 5
 const char E_MINOR_SCL[] = {E_3, F_SHARP_3, G_3, A_3, B_3, C_3, D_3, E_4};
+const char E_MINOR_7[] = {E_2, G_2, B_2, D_2, E_3, G_3, B_3, D_3};                                                   //BTN 5+6
+const char E_DIMINISHED[] = {E_2, G_2, A_SHARP_2, E_3, G_3, A_SHARP_3, E_4, G_4};                                     //BTN 5+9
 
-const char B_MINOR[] = {B_2, D_2, F_SHARP_2, B_3, D_3, F_SHARP_3, B_4, D_4};              // BTN 8
+const char B_MINOR[] = {B_2, D_2, F_SHARP_2, B_3, D_3, F_SHARP_3, B_4, D_4};                                        // BTN 8
 const char B_MINOR_SCL[] = {B_3, C_SHARP_3, D_3, E_3, F_SHARP_3, G_3, A_3, B_4};
+const char B_MINOR_7[] = {B_2, D_2, F_SHARP_2, A_2, B_3, D_3, F_SHARP_3, A_3};                                      //BTN 8+9
+const char B_DIMINISHED[] = {B_2, D_2, F_2, B_3, D_3, F_3, B_4, D_4};                                               //BTN 8+12
 
-const char F_SHARP_MINOR[] = {F_SHARP_2, A_2, C_2, F_SHARP_3, A_3, C_3, F_SHARP_4, A_4};  // BTN 11
+const char F_SHARP_MINOR[] = {F_SHARP_2, A_2, C_2, F_SHARP_3, A_3, C_3, F_SHARP_4, A_4};                            // BTN 11
 const char F_SHARP_MINOR_SCL[] = {F_SHARP_3, G_SHARP_3, A_3, B_3, C_SHARP_3, D_3, E_3, F_SHARP_4};
+const char F_SHARP_MINOR_7[] = {F_SHARP_2, A_2, C_SHARP_2, E_2, F_SHARP_3, A_3, C_SHARP_3, E_3};                    //BTN 11+12
+const char F_SHARP_DIMINISHED[] = {F_SHARP_2, A_2, C_2, F_SHARP_3, A_3, C_3, F_SHARP_4, A_4};                       //BTN 11+15
 
 //*************************
 // GLOBAL VARIABLES

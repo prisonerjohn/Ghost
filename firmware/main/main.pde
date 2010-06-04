@@ -13,6 +13,23 @@ boolean autoChordSwitch;
 boolean touchPlateSwitch;
 boolean drumMachineSwitch;
 
+boolean currentTP1A = LOW;
+boolean currentTP1B = LOW;
+boolean currentTP2A = LOW;
+boolean currentTP2B = LOW;
+boolean currentTP3A = LOW;
+boolean currentTP3B = LOW;
+boolean currentTP4A = LOW;
+boolean currentTP4B = LOW;
+boolean currentTP5A = LOW;
+boolean currentTP5B = LOW;
+boolean currentTP6A = LOW;
+boolean currentTP6B = LOW;
+boolean currentTP7A = LOW;
+boolean currentTP7B = LOW;
+boolean currentTP8A = LOW;
+boolean currentTP8B = LOW;
+
 NoteControl noteControls[NUM_BUTTON_BOARDS * NUM_BUTTON_COLS * NUM_BUTTON_ROWS];
 ChordControl chordControls[NUM_BUTTON_BOARDS * NUM_BUTTON_COLS * (NUM_BUTTON_ROWS-1)];
 
@@ -43,12 +60,16 @@ void setup() {
   initDrums();
 
   initEncoder();
+  initTouchplate();
+  initHSLED();
 }
 
 //-------------------------
 void loop() {
   readSwitchStates();
   readAnalogValues();
+  readTouchStates();
+  Headstock();
 
   readButtonStates();
 #ifdef DEBUG
