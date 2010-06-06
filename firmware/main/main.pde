@@ -8,11 +8,6 @@
 // PROGRAM VARIABLES
 //*************************
 
-boolean noteChordSwitch;
-boolean autoChordSwitch;
-boolean touchPlateSwitch;
-boolean drumMachineSwitch;
-
 boolean currentTP1A = LOW;
 boolean currentTP1B = LOW;
 boolean currentTP2A = LOW;
@@ -32,6 +27,7 @@ boolean currentTP8B = LOW;
 
 NoteControl noteControls[NUM_BUTTON_BOARDS * NUM_BUTTON_COLS * NUM_BUTTON_ROWS];
 ChordControl chordControls[NUM_BUTTON_BOARDS * NUM_BUTTON_COLS * (NUM_BUTTON_ROWS-1)];
+TouchControl touchControls[NUM_TOUCH_PLATES];
 
 boolean drumsRunning = false;
 int bpm = 120;
@@ -60,21 +56,21 @@ void setup() {
   initDrums();
 
   initEncoder();
-  initTouchplate();
-  initHSLED();
+  initTouchPlate();
+  initHeadstock();
 }
 
 //-------------------------
 void loop() {
   readSwitchStates();
   readAnalogValues();
-  readTouchStates();
-  Headstock();
-
+  
   readButtonStates();
 #ifdef DEBUG
   printButtonStates();
 #endif
+  
+  readTouchStates();
   
   if (drumMachineSwitch) {
     readEncoderValues();
@@ -87,7 +83,12 @@ void loop() {
     } else {
       doChords();
     }
+    
+    if (touchPlateSwitch) {
+      doTouchChords();  
+    }
   }
   
+  updateHeadstock();
   updateContinuousControls();
 }

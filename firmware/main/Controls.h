@@ -68,30 +68,58 @@ class ChordControl : public ButtonControl {
       numMappings = 1;
     }
     
-    void press() {
-      ButtonControl::press();
-      lastFlag = rowFlags[2];
+    void triggerOn(int _note) {
       for (int i=0; i < numMappings; i++) {
-        if (chordMaps[i].flag == rowFlags[2]) {
-          chordMaps[i].on(chan, 0x40);
+        if (chordMaps[i].flag == lastFlag) {
+          // only turn on a specific note in the chord
+          chordMaps[i].on(chan, 0x40, _note);
           return;
         }  
       }
       // no mapping was found, just play the first one
-      chordMaps[0].on(chan, 0x40);
+      chordMaps[0].on(chan, 0x40, _note);
+    }
+    
+    void triggerOff(int _note) {
+      for (int i=0; i < numMappings; i++) {
+        // only turn off a specific note in the chord
+        chordMaps[i].off(chan, _note);  
+      }
+    }
+    
+    void press() {
+      ButtonControl::press();
+      lastFlag = rowFlags[2];
+      
+      if (autoChordSwitch) {
+        for (int i=0; i < numMappings; i++) {
+          if (chordMaps[i].flag == lastFlag) {
+            chordMaps[i].on(chan, 0x40);
+            return;
+          }  
+        }
+        // no mapping was found, just play the first one
+        chordMaps[0].on(chan, 0x40);
+      }
     }
     
     void release() {
       ButtonControl::release();
-      for (int i=0; i < numMappings; i++) {
-        chordMaps[i].off(chan);  
+      
+      if (autoChordSwitch) {
+        for (int i=0; i < numMappings; i++) {
+          chordMaps[i].off(chan);  
+        }
       }
     }
     
     void pressIndex(int _i) {
       ButtonControl::press();
       lastFlag = rowFlags[2];
-      chordMaps[_i].on(chan, 0x40);
+      
+      if (autoChordSwitch) {
+        chordMaps[_i].on(chan, 0x40);
+      }
     }
     
     int mappingExists() {
@@ -166,6 +194,13 @@ class DrumControl : public ButtonControl {
     NoteMapping noteMap;
     
     boolean state;
+};
+
+//-------------------------
+class TouchControl: public ButtonControl {
+  public:
+    TouchControl() : ButtonControl() {}
+    
 };
 
 #endif

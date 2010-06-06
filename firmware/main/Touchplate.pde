@@ -1,70 +1,53 @@
 //-------------------------
-void initTouchplate(){
-  pinMode(TP1A,INPUT);
- // pinMode(TP1B,INPUT);
-  pinMode(TP2A,INPUT);
- // pinMode(TP2B,INPUT);
-  pinMode(TP3A,INPUT);
- //  pinMode(TP3B,INPUT);
-  pinMode(TP4A,INPUT);
- // pinMode(TP4B,INPUT);
-  pinMode(TP5A,INPUT);
- // pinMode(TP5B,INPUT);
-  pinMode(TP6A,INPUT);
- // pinMode(TP6B,INPUT);
-  pinMode(TP7A,INPUT);
- // pinMode(TP7B,INPUT);
-  pinMode(TP8A,INPUT);
- // pinMode(TP8B,INPUT);
+void initTouchPlate() {
+  for (int i = 0; i < NUM_TOUCH_PLATES; i++) {
+    // set the touch plate pins as inputs
+    pinMode(TOUCH_PLATE_PIN_1 + 2*i + 0, INPUT);
+    //pinMode(TOUCH_PLATE_PIN_1 + 2*i + 1, INPUT);
+    
+    // set the touch control index
+    touchControls[i].set(i);
+  }
 }
 
-///-------------------------
-
-void readTouchStates(){
-  currentTP1A = digitalRead(TP1A);
-  //currentTP1B = digitalRead(TP1B);
-  currentTP2A = digitalRead(TP2A);
-  //currentTP2B = digitalRead(TP2B);
-  currentTP3A = digitalRead(TP3A);
-  //currentTP3B = digitalRead(TP3B);
-  currentTP4A = digitalRead(TP4A);
-  //currentTP4B = digitalRead(TP4B);
-  currentTP5A = digitalRead(TP5A);
-  //currentTP5B = digitalRead(TP5B);
-  currentTP6A = digitalRead(TP6A);
-  //currentTP6B = digitalRead(TP6B);
-  currentTP7A = digitalRead(TP7A);
-  //currentTP7B = digitalRead(TP7B);
-  currentTP8A = digitalRead(TP8A);
-  //currentTP8B = digitalRead(TP8B);
-
-
-//if(currentTP1A == HIGH && lastTP1A == LOW)   //C
-//Serial.println("TP1A ON");
-//    
-//    else if(currentTP1A == LOW && lastTP1A == HIGH)
-//    Serial.println("TP1A OFF");
-//    
-//   lastTP1A = currentTP1A;
-
-
-//  Serial.print(currentTP1A,BIN);
-//  Serial.print(currentTP1B,BIN);
-//  Serial.print(currentTP2A,BIN);
-//  Serial.print(currentTP2B,BIN);
-//  Serial.print(currentTP3A,BIN);
-//  Serial.print(currentTP3B,BIN);
-//  Serial.print(currentTP4A,BIN);
-//  Serial.print(currentTP4B,BIN);          
-//  Serial.print(currentTP5A,BIN);
-//  Serial.print(currentTP5B,BIN);
-//  Serial.print(currentTP6A,BIN);
-//  Serial.print(currentTP6B,BIN);
-//  Serial.print(currentTP7A,BIN);
-  //Serial.print(currentTP7B,BIN);
-//  Serial.print(currentTP8A,BIN);
-//  Serial.println(currentTP8B,BIN);
-  
-  
-
+//-------------------------
+void readTouchStates() {
+  for (int i = 0; i < NUM_TOUCH_PLATES; i++) {
+    bitWrite(touchStates, i, digitalRead(TOUCH_PLATE_PIN_1 + 2*i + 0));
+  }
 }
+
+//-------------------------
+void doTouchChords() {
+  boolean state;
+  int index;
+  
+  for (int plt = 0; plt < NUM_TOUCH_PLATES; plt++) {
+    state = bitRead(touchStates, plt);
+    
+    if (touchControls[plt].pressed != state) {
+      touchControls[plt].toggle();
+      
+      // trigger chords if necessary
+      for (int brd = 0; brd < NUM_BUTTON_BOARDS; brd++) {
+        for (int col = 0; col < NUM_BUTTON_COLS; col++) {
+          for (int row = 0; row < NUM_BUTTON_ROWS-1; row++) {
+            index = brd*(NUM_BUTTON_ROWS-1)*NUM_BUTTON_COLS + col*(NUM_BUTTON_ROWS-1) + row;
+        
+            // if the chord is active...
+            if (chordControls[index].pressed) {
+              if (touchControls[plt].pressed) {
+                // play the specific note in the chord
+                chordControls[index].triggerOn(plt);  
+              } else {
+                // stop the specific note in the chord
+                chordControls[index].triggerOff(plt);
+              }
+            }
+          }  
+        }
+      }
+    }
+  }
+}
+

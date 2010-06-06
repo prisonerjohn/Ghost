@@ -53,6 +53,14 @@ class ChordMapping : public Mapping {
       }
     }
     
+    void on(char _chan, char _vel, int _i) {
+      noteOn(_chan, notes[_i], _vel);
+    }
+    
+    void off(char _chan, int _i) {
+      noteOn(_chan, notes[_i], 0x00);
+    }
+    
     const char* notes;
     int  numNotes;
     word flag;
