@@ -7,6 +7,8 @@
 #define NUM_BUTTON_ROWS    3
 #define NUM_BUTTON_COLS    4
 
+#define NUM_TOUCH_PLATES   8
+
 #define NUM_STEPS (NUM_BUTTON_BOARDS * NUM_BUTTON_COLS)
 #define NUM_ARRAYS NUM_STEPS
 
@@ -25,35 +27,13 @@
 // TOUCHPLATE DEFINITIONS
 //*************************
 
-#define TP1A 22
-#define TP1B 23
-#define TP2A 24
-#define TP2B 25
-#define TP3A 26
-#define TP3B 27
-#define TP4A 28
-#define TP4B 29
-#define TP5A 30
-#define TP5B 31
-#define TP6A 32
-#define TP6B 33
-#define TP7A 34
-#define TP7B 35
-#define TP8A 36
-#define TP8B 37
+#define TOUCH_PLATE_PIN_1   22
 
 //*************************
 // HEADSTOCK DEFINITIONS
 //*************************
 
-#define HSLED1 62
-#define HSLED2 63
-#define HSLED3 64
-#define HSLED4 65
-#define HSLED5 66
-#define HSLED6 67
-#define HSLED7 68
-#define HSLED8 69
+#define HEADSTOCK_PIN_1     62
 
 //*************************
 // NOTE DEFINITIONS
@@ -300,8 +280,14 @@ const char F_SHARP_DIMINISHED[] = {F_SHARP_2, A_2, C_2, F_SHARP_3, A_3, C_3, F_S
 // GLOBAL VARIABLES
 //*************************
 
+boolean noteChordSwitch;
+boolean autoChordSwitch;
+boolean touchPlateSwitch;
+boolean drumMachineSwitch;
+
 word buttonStates[NUM_BUTTON_BOARDS];
 word rowFlags[NUM_BUTTON_ROWS];
+byte touchStates;
 
 //*************************
 // GLOBAL FUNCTIONS
