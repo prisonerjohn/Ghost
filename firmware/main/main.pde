@@ -85,7 +85,11 @@ void loop() {
     }
     
     if (touchPlateSwitch) {
-      doTouchChords();  
+      if (noteChordSwitch) {
+        doTouchNotes();
+      } else {
+        doTouchChords();  
+      }
     }
   }
   

@@ -18,6 +18,38 @@ void readTouchStates() {
 }
 
 //-------------------------
+void doTouchNotes() {
+  boolean state;
+  int index;
+  
+  for (int plt = 0; plt < NUM_BUTTON_ROWS; plt++) {
+    state = bitRead(touchStates, plt);
+    
+    if (touchControls[plt].pressed != state) {
+      touchControls[plt].toggle();
+      
+      // trigger notes if necessary
+      for (int brd = 0; brd < NUM_BUTTON_BOARDS; brd++) {
+        for (int col = 0; col < NUM_BUTTON_COLS; col++) {
+          index = brd*NUM_BUTTON_ROWS*NUM_BUTTON_COLS + col*NUM_BUTTON_ROWS + plt;  // plt == row
+          
+          // if the note is active...
+          if (noteControls[index].pressed) {
+            if (touchControls[plt].pressed) {
+              // play the note
+              noteControls[index].triggerOn();
+            } else {
+              // stop the note
+              noteControls[index].triggerOff();
+            }
+          }  
+        }
+      }
+    }
+  }
+}
+
+//-------------------------
 void doTouchChords() {
   boolean state;
   int index;

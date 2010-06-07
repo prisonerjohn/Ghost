@@ -42,9 +42,20 @@ class NoteControl : public ButtonControl {
       noteMap = _noteMap; 
     }
     
+    void triggerOn() {
+      noteMap.on(chan, 0x40);
+    }
+    
+    void triggerOff() {
+      noteMap.off(chan);
+    }
+    
     void press() {
       ButtonControl::press();
-      noteMap.on(chan, 0x40);
+      
+      if (!touchPlateSwitch) {
+        noteMap.on(chan, 0x40);
+      }
     }
     
     void release() {
