@@ -30,7 +30,7 @@ void initDrums() {
   currArray = 0;
   
   for (int a=0; a < NUM_ARRAYS; a++) {
-    NoteMapping d(38 + a);
+    NoteMapping d(60 + a);
     for (int s=0; s < NUM_STEPS; s++) {
       drumControls[a][s].set(s, 0x91, d);
     } 
