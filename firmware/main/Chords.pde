@@ -35,7 +35,7 @@ void initChords() {
   chordControls[12].addMapping(ChordMapping(F_SHARP_MAJOR_7, 8, B11000000));
   chordControls[12].addMapping(ChordMapping(F_SHARP_AUGMENTED, 8, B10000000));
   
-    chordControls[14].set(0, 0x90, ChordMapping(C_SHARP_MAJOR, 8));
+  chordControls[14].set(0, 0x90, ChordMapping(C_SHARP_MAJOR, 8));
   chordControls[14].addMapping(ChordMapping(C_SHARP_SEVEN, 8, B10000000));
   chordControls[14].addMapping(ChordMapping(C_SHARP_MAJOR_7, 8, (B1 << 8) | B10000000));
   chordControls[14].addMapping(ChordMapping(C_SHARP_AUGMENTED, 8, (B1 << 8)));
@@ -77,6 +77,38 @@ void initChords() {
   chordControls[7].set(0, 0x90, ChordMapping(F_SHARP_MINOR, 8));
   chordControls[7].addMapping(ChordMapping(F_SHARP_MINOR_7, 8, B1000));
   chordControls[7].addMapping(ChordMapping(F_SHARP_DIMINISHED, 8, B10000));
+  
+  chordControls[9].set(0, 0x90, ChordMapping(C_SHARP_MINOR, 8));
+  chordControls[9].addMapping(ChordMapping(C_SHARP_MINOR_7, 8, B10000));
+  chordControls[9].addMapping(ChordMapping(C_SHARP_DIMINISHED, 8, B100000));
+  
+  chordControls[11].set(0, 0x90, ChordMapping(G_SHARP_MINOR, 8));
+  chordControls[11].addMapping(ChordMapping(G_SHARP_MINOR_7, 8, B100000));
+  chordControls[11].addMapping(ChordMapping(G_SHARP_DIMINISHED, 8, B1000000));
+  
+  chordControls[13].set(0, 0x90, ChordMapping(D_SHARP_MINOR, 8));
+  chordControls[13].addMapping(ChordMapping(D_SHARP_MINOR_7, 8, B1000000));
+  chordControls[13].addMapping(ChordMapping(D_SHARP_DIMINISHED, 8, B10000000));
+  
+  chordControls[15].set(0, 0x90, ChordMapping(A_SHARP_MINOR, 8));
+  chordControls[15].addMapping(ChordMapping(A_SHARP_MINOR_7, 8, B10000000));
+  chordControls[15].addMapping(ChordMapping(A_SHARP_DIMINISHED, 8, (B1 << 8)));
+  
+  chordControls[17].set(0, 0x90, ChordMapping(F_MINOR, 8));
+  chordControls[17].addMapping(ChordMapping(F_MINOR_7, 8, (B1 << 8)));
+  chordControls[17].addMapping(ChordMapping(F_DIMINISHED, 8, (B10 << 8)));
+  
+  chordControls[19].set(0, 0x90, ChordMapping(C_MINOR, 8));
+  chordControls[19].addMapping(ChordMapping(C_MINOR_7, 8, (B10 << 8)));
+  chordControls[19].addMapping(ChordMapping(C_DIMINISHED, 8, (B100 << 8)));
+  
+  chordControls[21].set(0, 0x90, ChordMapping(G_MINOR, 8));
+  chordControls[21].addMapping(ChordMapping(G_MINOR_7, 8, (B100 << 8)));
+  chordControls[21].addMapping(ChordMapping(G_DIMINISHED, 8, (B1000 << 8)));
+  
+  chordControls[23].set(0, 0x90, ChordMapping(D_MINOR, 8));
+  chordControls[23].addMapping(ChordMapping(D_MINOR_7, 8, (B1000 << 8)));
+  chordControls[23].addMapping(ChordMapping(D_DIMINISHED, 8, (B100 << 8)));
   
   
   
