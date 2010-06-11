@@ -75,8 +75,8 @@ void readAccelerometer() {
   yTotal += yArray[accIndex];  // add the reading to the total
   
   // calculate the averages
-  xAverage = map(xTotal / ACC_NUM_READINGS, 200, 800, 0, 115);   
-  yAverage = map(yTotal / ACC_NUM_READINGS, 300, 800, 0, 115);  
+  xAverage = map(xTotal / ACC_NUM_READINGS, 0, 190, 0, 127);   
+  yAverage = map(yTotal / ACC_NUM_READINGS, 25, 275, 0, 127);  
   
   accIndex = (accIndex+1)%ACC_NUM_READINGS;
 }
