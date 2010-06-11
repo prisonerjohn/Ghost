@@ -73,13 +73,14 @@ class ChordControl : public ButtonControl {
       numMappings = 0;
     }
     
-    void set(int _id, int _chan, ChordMapping _chordMap) {
+    void set(int _id, int _chan, ChordMapping _chordMap, ChordMapping _scaleMap) {
       Control::set(_id, _chan);
       chordMaps[0] = _chordMap;
       numMappings = 1;
+      scaleMap = _scaleMap;
     }
     
-    void triggerOn(int _note) {
+    void triggerChordOn(int _note) {
       for (int i=0; i < numMappings; i++) {
         if (chordMaps[i].flag == lastFlag) {
           // only turn on a specific note in the chord
@@ -91,11 +92,19 @@ class ChordControl : public ButtonControl {
       chordMaps[0].on(chan, 0x40, _note);
     }
     
-    void triggerOff(int _note) {
+    void triggerChordOff(int _note) {
       for (int i=0; i < numMappings; i++) {
         // only turn off a specific note in the chord
         chordMaps[i].off(chan, _note);  
       }
+    }
+    
+    void triggerScaleOn(int _note) {
+      scaleMap.on(chan, 0x40, _note);
+    }
+    
+    void triggerScaleOff(int _note) {
+      scaleMap.off(chan, _note);
     }
     
     void press() {
@@ -119,7 +128,7 @@ class ChordControl : public ButtonControl {
       
       if (autoChordSwitch) {
         for (int i=0; i < numMappings; i++) {
-          chordMaps[i].off(chan);  
+          chordMaps[i].off(chan);
         }
       }
     }
@@ -152,6 +161,8 @@ class ChordControl : public ButtonControl {
     ChordMapping chordMaps[MAX_CHORD_MAPPINGS];
     int numMappings;
     word lastFlag;
+    
+    ChordMapping scaleMap;
 };
 
 //-------------------------

@@ -70,10 +70,44 @@ void doTouchChords() {
             if (chordControls[index].pressed) {
               if (touchControls[plt].pressed) {
                 // play the specific note in the chord
-                chordControls[index].triggerOn(plt);  
+                chordControls[index].triggerChordOn(plt);  
               } else {
                 // stop the specific note in the chord
-                chordControls[index].triggerOff(plt);
+                chordControls[index].triggerChordOff(plt);
+              }
+            }
+          }  
+        }
+      }
+    }
+  }
+}
+
+//-------------------------
+void doTouchScales() {
+  boolean state;
+  int index;
+  
+  for (int plt = 0; plt < NUM_TOUCH_PLATES; plt++) {
+    state = bitRead(touchStates, plt);
+    
+    if (touchControls[plt].pressed != state) {
+      touchControls[plt].toggle();
+      
+      // trigger scales if necessary
+      for (int brd = 0; brd < NUM_BUTTON_BOARDS; brd++) {
+        for (int col = 0; col < NUM_BUTTON_COLS; col++) {
+          for (int row = 0; row < NUM_BUTTON_ROWS-1; row++) {
+            index = brd*(NUM_BUTTON_ROWS-1)*NUM_BUTTON_COLS + col*(NUM_BUTTON_ROWS-1) + row;
+        
+            // if the chord is active...
+            if (chordControls[index].pressed) {
+              if (touchControls[plt].pressed) {
+                // play the specific note in the scale
+                chordControls[index].triggerScaleOn(plt);  
+              } else {
+                // stop the specific note in the chord
+                chordControls[index].triggerScaleOff(plt);
               }
             }
           }  
