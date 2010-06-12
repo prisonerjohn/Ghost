@@ -1,4 +1,7 @@
 //-------------------------
+TouchControl touchControls[NUM_TOUCH_PLATES];
+
+//-------------------------
 void initTouchPlate() {
   for (int i = 0; i < NUM_TOUCH_PLATES; i++) {
     // set the touch plate pins as inputs

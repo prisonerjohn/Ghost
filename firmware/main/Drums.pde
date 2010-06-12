@@ -1,6 +1,10 @@
 //-------------------------
 int currStep;
 int currArray;
+
+boolean drumsRunning = false;
+int bpm = 120;
+
 DrumControl drumControls[NUM_ARRAYS][NUM_STEPS];
 ButtonControl sequenceControls[NUM_ARRAYS];
 ButtonControl arrayControls[NUM_ARRAYS];

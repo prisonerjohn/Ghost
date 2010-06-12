@@ -1,4 +1,7 @@
 //-------------------------
+ChordControl chordControls[(NUM_BUTTON_BOARDS-1) * NUM_BUTTON_COLS * (NUM_BUTTON_ROWS-1)];
+
+//-------------------------
 void initChords() {
   // top row
   chordControls[0].set(0, 0x90, ChordMapping(C_MAJOR, 8), ChordMapping(C_MAJOR_SCL, 8));

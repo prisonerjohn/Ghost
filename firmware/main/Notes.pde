@@ -1,4 +1,7 @@
 //-------------------------
+NoteControl noteControls[NUM_BUTTON_BOARDS * NUM_BUTTON_COLS * NUM_BUTTON_ROWS];
+
+//-------------------------
 void initNotes() {
   for (int col = 0; col < NUM_BUTTON_BOARDS * NUM_BUTTON_COLS; col++) {
     for (int row = 0; row < NUM_BUTTON_ROWS; row++) {
