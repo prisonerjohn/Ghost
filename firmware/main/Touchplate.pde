@@ -61,7 +61,7 @@ void doTouchChords() {
       touchControls[plt].toggle();
       
       // trigger chords if necessary
-      for (int brd = 0; brd < NUM_BUTTON_BOARDS; brd++) {
+      for (int brd = 0; brd < (NUM_BUTTON_BOARDS-1); brd++) {
         for (int col = 0; col < NUM_BUTTON_COLS; col++) {
           for (int row = 0; row < NUM_BUTTON_ROWS-1; row++) {
             index = brd*(NUM_BUTTON_ROWS-1)*NUM_BUTTON_COLS + col*(NUM_BUTTON_ROWS-1) + row;
@@ -95,7 +95,7 @@ void doTouchScales() {
       touchControls[plt].toggle();
       
       // trigger scales if necessary
-      for (int brd = 0; brd < NUM_BUTTON_BOARDS; brd++) {
+      for (int brd = 0; brd < (NUM_BUTTON_BOARDS-1); brd++) {
         for (int col = 0; col < NUM_BUTTON_COLS; col++) {
           for (int row = 0; row < NUM_BUTTON_ROWS-1; row++) {
             index = brd*(NUM_BUTTON_ROWS-1)*NUM_BUTTON_COLS + col*(NUM_BUTTON_ROWS-1) + row;

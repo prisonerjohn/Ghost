@@ -1,5 +1,6 @@
 //-------------------------
 void initChords() {
+  // top row
   chordControls[0].set(0, 0x90, ChordMapping(C_MAJOR, 8), ChordMapping(C_MAJOR_SCL, 8));
   chordControls[0].addMapping(ChordMapping(C_SEVEN, 8, B1));
   chordControls[0].addMapping(ChordMapping(C_MAJOR_7, 8, B11));
@@ -60,8 +61,7 @@ void initChords() {
   chordControls[22].addMapping(ChordMapping(F_MAJOR_7, 8, (B1100 << 8)));
   chordControls[22].addMapping(ChordMapping(F_AUGMENTED, 8, (B100 << 8))); 
   
-  
-  
+  // second row
   chordControls[1].set(0, 0x90, ChordMapping(A_MINOR, 8), ChordMapping(A_MINOR_SCL, 8));
   chordControls[1].addMapping(ChordMapping(A_MINOR_7, 8, B1));
   chordControls[1].addMapping(ChordMapping(A_DIMINISHED, 8, B10));
@@ -117,7 +117,7 @@ void doChords() {
   int index;
   
   // trigger chords if necessary
-  for (int brd = 0; brd < NUM_BUTTON_BOARDS; brd++) {
+  for (int brd = 0; brd < (NUM_BUTTON_BOARDS-1); brd++) {
     for (int col = 0; col < NUM_BUTTON_COLS; col++) {
       for (int row = 0; row < NUM_BUTTON_ROWS-1; row++) {
         state = bitRead(buttonStates[brd], col*NUM_BUTTON_ROWS + row);

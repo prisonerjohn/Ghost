@@ -9,7 +9,7 @@
 //*************************
 
 NoteControl noteControls[NUM_BUTTON_BOARDS * NUM_BUTTON_COLS * NUM_BUTTON_ROWS];
-ChordControl chordControls[NUM_BUTTON_BOARDS * NUM_BUTTON_COLS * (NUM_BUTTON_ROWS-1)];
+ChordControl chordControls[(NUM_BUTTON_BOARDS-1) * NUM_BUTTON_COLS * (NUM_BUTTON_ROWS-1)];
 TouchControl touchControls[NUM_TOUCH_PLATES];
 
 boolean drumsRunning = false;
@@ -33,6 +33,7 @@ void setup() {
 
   initSwitches();
   initAnalogs();
+  initDigitals();
   
   initNotes();
   initChords();
@@ -69,6 +70,7 @@ void loop() {
       
     } else {                // chord mode
       doChords();
+      doDigitals();
       
       if (autoChordSwitch && touchPlateSwitch) {
         doTouchScales();

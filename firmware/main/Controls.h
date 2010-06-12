@@ -225,4 +225,11 @@ class TouchControl: public ButtonControl {
     
 };
 
+//-------------------------
+class DigitalControl: public NoteControl {
+  public:
+    DigitalControl() : NoteControl() {}
+    
+};
+
 #endif
