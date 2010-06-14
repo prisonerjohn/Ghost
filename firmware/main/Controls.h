@@ -1,5 +1,5 @@
-#ifndef THE_GHOST_CONTROLS
-#define THE_GHOST_CONTROLS
+#ifndef GHOST_CONTROLS
+#define GHOST_CONTROLS
 
 //-------------------------
 class Control {
@@ -35,42 +35,51 @@ class ButtonControl : public Control {
 //-------------------------
 class NoteControl : public ButtonControl {
   public:
-    NoteControl() : ButtonControl() {}
+    NoteControl(int _octave = 0) : ButtonControl() {
+      octave = _octave;
+    }
     
     void set(int _id, int _chan, NoteMapping _noteMap) {
       Control::set(_id, _chan);
       noteMap = _noteMap; 
     }
     
+    void setOctave(int _octave) {
+      octave = _octave;
+    }
+    
     void triggerOn() {
-      noteMap.on(chan, 0x40);
+      noteMap.on(chan, 0x40, octave);
     }
     
     void triggerOff() {
-      noteMap.off(chan);
+      noteMap.off(chan, octave);
     }
     
     void press() {
       ButtonControl::press();
       
       if (!touchPlateSwitch) {
-        noteMap.on(chan, 0x40);
+        noteMap.on(chan, 0x40, octave);
       }
     }
     
     void release() {
       ButtonControl::release();
-      noteMap.off(chan);
+      noteMap.off(chan, octave);
     }
     
     NoteMapping noteMap;
+    
+    int octave;
 };
 
 //-------------------------
 class ChordControl : public ButtonControl {
   public:
-    ChordControl() : ButtonControl() {
+    ChordControl(int _octave = 0) : ButtonControl() {
       numMappings = 0;
+      octave = _octave;
     }
     
     void set(int _id, int _chan, ChordMapping _chordMap, ChordMapping _scaleMap) {
@@ -80,31 +89,35 @@ class ChordControl : public ButtonControl {
       scaleMap = _scaleMap;
     }
     
+    void setOctave(int _octave) {
+      octave = _octave;
+    }
+    
     void triggerChordOn(int _note) {
       for (int i=0; i < numMappings; i++) {
         if (chordMaps[i].flag == lastFlag) {
           // only turn on a specific note in the chord
-          chordMaps[i].on(chan, 0x40, _note);
+          chordMaps[i].on(chan, 0x40, _note, octave);
           return;
         }  
       }
       // no mapping was found, just play the first one
-      chordMaps[0].on(chan, 0x40, _note);
+      chordMaps[0].on(chan, 0x40, _note, octave);
     }
     
     void triggerChordOff(int _note) {
       for (int i=0; i < numMappings; i++) {
         // only turn off a specific note in the chord
-        chordMaps[i].off(chan, _note);  
+        chordMaps[i].off(chan, _note, octave);  
       }
     }
     
     void triggerScaleOn(int _note) {
-      scaleMap.on(chan, 0x40, _note);
+      scaleMap.on(chan, 0x40, _note, octave);
     }
     
     void triggerScaleOff(int _note) {
-      scaleMap.off(chan, _note);
+      scaleMap.off(chan, _note, octave);
     }
     
     void press() {
@@ -114,12 +127,12 @@ class ChordControl : public ButtonControl {
       if (autoChordSwitch) {
         for (int i=0; i < numMappings; i++) {
           if (chordMaps[i].flag == lastFlag) {
-            chordMaps[i].on(chan, 0x40);
+            chordMaps[i].on(chan, 0x40, octave);
             return;
           }  
         }
         // no mapping was found, just play the first one
-        chordMaps[0].on(chan, 0x40);
+        chordMaps[0].on(chan, 0x40, octave);
       }
     }
     
@@ -128,7 +141,7 @@ class ChordControl : public ButtonControl {
       
       if (autoChordSwitch) {
         for (int i=0; i < numMappings; i++) {
-          chordMaps[i].off(chan);
+          chordMaps[i].off(chan, octave);
         }
       }
     }
@@ -138,7 +151,7 @@ class ChordControl : public ButtonControl {
       lastFlag = rowFlags[2];
       
       if (autoChordSwitch) {
-        chordMaps[_i].on(chan, 0x40);
+        chordMaps[_i].on(chan, 0x40, octave);
       }
     }
     
@@ -163,6 +176,8 @@ class ChordControl : public ButtonControl {
     word lastFlag;
     
     ChordMapping scaleMap;
+    
+    int octave;
 };
 
 //-------------------------
@@ -209,8 +224,8 @@ class DrumControl : public ButtonControl {
     }
     
     void trigger() {
-      noteMap.on(chan, 0x40);
-      noteMap.off(chan);
+      noteMap.on(chan, 0x40, 0);
+      noteMap.off(chan, 0);
     }
     
     NoteMapping noteMap;

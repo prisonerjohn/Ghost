@@ -1,13 +1,13 @@
-#ifndef THE_GHOST_MAPPINGS
-#define THE_GHOST_MAPPINGS
+#ifndef GHOST_MAPPINGS
+#define GHOST_MAPPINGS
 
 //-------------------------
 class Mapping {
   public:
     Mapping() {}
     
-    virtual void on(char _chan, char _vel);
-    virtual void off(char _chan);
+    virtual void on(char _chan, char _vel, int _octave);
+    virtual void off(char _chan, int _octave);
 };
 
 //-------------------------
@@ -17,12 +17,12 @@ class NoteMapping : public Mapping {
       note = _note;
     }
     
-    void on(char _chan, char _vel) {
-      noteOn(_chan, note, _vel);
+    void on(char _chan, char _vel, int _octave) {
+      noteOn(_chan, note + (NUM_NOTES_OCTAVE * _octave), _vel);
     }
     
-    void off(char _chan) {
-      noteOn(_chan, note, 0x00);
+    void off(char _chan, int _octave) {
+      noteOn(_chan, note + (NUM_NOTES_OCTAVE * _octave), 0x00);
     }
     
     char note;
@@ -41,24 +41,24 @@ class ChordMapping : public Mapping {
       flag     = _flag;
     }
     
-    void on(char _chan, char _vel) {
+    void on(char _chan, char _vel, int _octave) {
       for (int i=0; i < numNotes; i++) {
-        noteOn(_chan, notes[i], _vel);
+        noteOn(_chan, notes[i] + (NUM_NOTES_OCTAVE * _octave), _vel);
       }
     }
     
-    void off(char _chan) {
+    void off(char _chan, int _octave) {
       for (int i=0; i < numNotes; i++) {
-        noteOn(_chan, notes[i], 0x00);
+        noteOn(_chan, notes[i] + (NUM_NOTES_OCTAVE * _octave), 0x00);
       }
     }
     
-    void on(char _chan, char _vel, int _i) {
-      noteOn(_chan, notes[_i], _vel);
+    void on(char _chan, char _vel, int _i, int _octave) {
+      noteOn(_chan, notes[_i] + (NUM_NOTES_OCTAVE * _octave), _vel);
     }
     
-    void off(char _chan, int _i) {
-      noteOn(_chan, notes[_i], 0x00);
+    void off(char _chan, int _i, int _octave) {
+      noteOn(_chan, notes[_i] + (NUM_NOTES_OCTAVE * _octave), 0x00);
     }
     
     const char* notes;

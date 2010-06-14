@@ -1,5 +1,5 @@
-#ifndef THE_GHOST
-#define THE_GHOST
+#ifndef GHOST
+#define GHOST
 
 #include "WProgram.h"
 
@@ -13,6 +13,8 @@
 #define NUM_ARRAYS           NUM_STEPS
 
 #define MAX_CHORD_MAPPINGS   8
+
+#define NUM_NOTES_OCTAVE    12
 
 //*************************
 // SWITCH DEFINITIONS
