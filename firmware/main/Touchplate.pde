@@ -6,17 +6,17 @@ void initTouchPlate() {
   for (int i = 0; i < NUM_TOUCH_PLATES; i++) {
     // set the touch plate pins as inputs
     pinMode(TOUCH_PLATE_PIN_1 + 2*i + 0, INPUT);
-    //pinMode(TOUCH_PLATE_PIN_1 + 2*i + 1, INPUT);
-    
-    // set the touch control index
-    touchControls[i].set(i);
+    pinMode(TOUCH_PLATE_PIN_1 + 2*i + 1, INPUT);
   }
+  
+  touchStates = 0;
 }
 
 //-------------------------
 void readTouchStates() {
   for (int i = 0; i < NUM_TOUCH_PLATES; i++) {
-    bitWrite(touchStates, i, digitalRead(TOUCH_PLATE_PIN_1 + 2*i + 0));
+    bitWrite(touchStates, 2*i + 0, digitalRead(TOUCH_PLATE_PIN_1 + 2*i + 0));
+    bitWrite(touchStates, 2*i + 1, digitalRead(TOUCH_PLATE_PIN_1 + 2*i + 1));
   }
 }
 
@@ -25,8 +25,9 @@ void doTouchNotes() {
   boolean state;
   int index;
   
+  // only look at the top three touch plates for mapping to notes
   for (int plt = 0; plt < NUM_BUTTON_ROWS; plt++) {
-    state = bitRead(touchStates, plt);
+    state = bitRead(touchStates, 2*plt + 0);
     
     if (touchControls[plt].pressed != state) {
       touchControls[plt].toggle();
@@ -58,7 +59,7 @@ void doTouchChords() {
   int index;
   
   for (int plt = 0; plt < NUM_TOUCH_PLATES; plt++) {
-    state = bitRead(touchStates, plt);
+    state = bitRead(touchStates, 2*plt + 0);
     
     if (touchControls[plt].pressed != state) {
       touchControls[plt].toggle();
@@ -92,7 +93,7 @@ void doTouchScales() {
   int index;
   
   for (int plt = 0; plt < NUM_TOUCH_PLATES; plt++) {
-    state = bitRead(touchStates, plt);
+    state = bitRead(touchStates, 2*plt + 0);
     
     if (touchControls[plt].pressed != state) {
       touchControls[plt].toggle();

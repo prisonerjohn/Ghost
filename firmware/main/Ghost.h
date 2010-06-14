@@ -3,25 +3,25 @@
 
 #include "WProgram.h"
 
-#define NUM_BUTTON_BOARDS  4
-#define NUM_BUTTON_ROWS    3
-#define NUM_BUTTON_COLS    4
+#define NUM_BUTTON_BOARDS    4
+#define NUM_BUTTON_ROWS      3
+#define NUM_BUTTON_COLS      4
 
-#define NUM_TOUCH_PLATES   8
+#define NUM_TOUCH_PLATES     8
 
-#define NUM_STEPS (NUM_BUTTON_BOARDS * NUM_BUTTON_COLS)
-#define NUM_ARRAYS NUM_STEPS
+#define NUM_STEPS            (NUM_BUTTON_BOARDS * NUM_BUTTON_COLS)
+#define NUM_ARRAYS           NUM_STEPS
 
-#define MAX_CHORD_MAPPINGS 8
+#define MAX_CHORD_MAPPINGS   8
 
 //*************************
 // SWITCH DEFINITIONS
 //*************************
 
-#define SWITCH_AUTO_CHORD   2
-#define SWITCH_NOTE_CHORD   3
-#define SWITCH_TOUCH_PLATE  4
-#define SWITCH_DRUM_MACHINE 5
+#define SWITCH_AUTO_CHORD    2
+#define SWITCH_NOTE_CHORD    3
+#define SWITCH_TOUCH_PLATE   4
+#define SWITCH_DRUM_MACHINE  5
 
 //*************************
 // TOUCHPLATE DEFINITIONS
@@ -329,7 +329,7 @@ boolean drumMachineSwitch;
 
 word buttonStates[NUM_BUTTON_BOARDS];
 word rowFlags[NUM_BUTTON_ROWS];
-byte touchStates;
+word touchStates;
 
 //*************************
 // GLOBAL FUNCTIONS
