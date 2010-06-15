@@ -1,6 +1,10 @@
 //-------------------------
 TouchControl touchControls[NUM_TOUCH_PLATES];
 
+unsigned long currMs;
+unsigned long nextMs;
+const unsigned long NEXT_INTERVAL = 5;
+
 //-------------------------
 void initTouchPlate() {
   for (int i = 0; i < NUM_TOUCH_PLATES; i++) {
@@ -10,13 +14,20 @@ void initTouchPlate() {
   }
   
   touchStates = 0;
+  currMs = millis();
+  nextMs = currMs + NEXT_INTERVAL;
 }
 
 //-------------------------
 void readTouchStates() {
-  for (int i = 0; i < NUM_TOUCH_PLATES; i++) {
-    bitWrite(touchStates, 2*i + 0, digitalRead(TOUCH_PLATE_PIN_1 + 2*i + 0));
-    bitWrite(touchStates, 2*i + 1, digitalRead(TOUCH_PLATE_PIN_1 + 2*i + 1));
+  currMs = millis();
+  if (currMs >= nextMs) {
+    for (int i = 0; i < NUM_TOUCH_PLATES; i++) {
+      bitWrite(touchStates, 2*i + 0, digitalRead(TOUCH_PLATE_PIN_1 + 2*i + 0));
+      bitWrite(touchStates, 2*i + 1, digitalRead(TOUCH_PLATE_PIN_1 + 2*i + 1));
+    }
+    
+    nextMs = currMs + NEXT_INTERVAL;
   }
 }
 
