@@ -139,11 +139,11 @@ class ChordControl : public ButtonControl {
     void release() {
       ButtonControl::release();
       
-      if (autoChordSwitch) {
+      //if (autoChordSwitch) {
         for (int i=0; i < numMappings; i++) {
           chordMaps[i].off(chan, octave);
         }
-      }
+      //}
     }
     
     void pressIndex(int _i) {
