@@ -38,7 +38,7 @@ void doTouchNotes() {
   
   // only look at the top three touch plates for mapping to notes
   for (int plt = 0; plt < NUM_BUTTON_ROWS; plt++) {
-    state = bitRead(touchStates, 2*plt + 0);
+    state = bitRead(touchStates, 2*plt + 0) || bitRead(touchStates, 2*plt + 1);
     
     if (touchControls[plt].pressed != state) {
       touchControls[plt].toggle();
@@ -70,7 +70,7 @@ void doTouchChords() {
   int index;
   
   for (int plt = 0; plt < NUM_TOUCH_PLATES; plt++) {
-    state = bitRead(touchStates, 2*plt + 0);
+    state = bitRead(touchStates, 2*plt + 0) || bitRead(touchStates, 2*plt + 1);
     
     if (touchControls[plt].pressed != state) {
       touchControls[plt].toggle();
@@ -104,7 +104,7 @@ void doTouchScales() {
   int index;
   
   for (int plt = 0; plt < NUM_TOUCH_PLATES; plt++) {
-    state = bitRead(touchStates, 2*plt + 0);
+    state = bitRead(touchStates, 2*plt + 0) || bitRead(touchStates, 2*plt + 1);
     
     if (touchControls[plt].pressed != state) {
       touchControls[plt].toggle();
